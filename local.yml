@@ -1,6 +1,8 @@
 ---
 
-- hosts: localhost
+- name:       "Installing NSD using Ansible..."
+  hosts:      all
+  connection: local
   tasks:
     - name: install_packages
       apt:

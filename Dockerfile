@@ -16,6 +16,7 @@ RUN mkdir -p /var/lib/ansible/local && \
     ansible-pull \
         -d /var/lib/ansible/local \
         -U https://github.com/monokal/docker-nsd.git \
+        -i 127.0.0.1, \
         --purge
 
 RUN apt-get -y purge software-properties-common git ansible
