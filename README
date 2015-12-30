@@ -1,0 +1,23 @@
+
+    WARNING
+    -------
+    This Ansible repository is intended to be used by the ansible-pull command
+    from a nameserver host. Running this on your local machine will result in
+    it becoming a nameserver, so be careful unless that's what floats your boat.
+
+    DESCRIPTION
+    -----------
+    This is an Ansible repository containing the playbooks to build an NSD
+    authoritative-only DNS server. This repository is intended to be used by
+    the "ansible-pull" command from a nameserver host (see WARNING above).
+
+    USAGE
+    -----
+    From a nameserver host, simply execute:
+
+        "ansible-pull -d /var/lib/ansible/local -U https://github.com/monokal/ansible-nsd.git"
+
+    AUTHOR
+    ------
+    Daniel Middleton <d@monokal.io>
+

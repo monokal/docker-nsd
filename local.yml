@@ -1,0 +1,11 @@
+---
+
+- hosts: localhost
+  tasks:
+    - name: install_packages
+      apt:
+        name:         "{{ item }}"
+        update_cache: yes
+      with_items:
+        - "nsd"
+      register: install_packages
