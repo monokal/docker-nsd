@@ -1,25 +1,10 @@
-FROM ubuntu:trusty
+FROM monokal/ansible-pull:latest
 
 MAINTAINER Daniel Middleton <d@monokal.io>
 
-LABEL description="A Docker Image to run the NSD authoritative-only DNS server."
-
-ENV DEBIAN_FRONTEND noninteractive
-
-RUN apt-get update && \
-    apt-get -y install software-properties-common && \
-    apt-add-repository -y ppa:ansible/ansible && \
-    apt-get update && \
-    apt-get -y install git ansible
-
-RUN mkdir -p /var/lib/ansible/local && \
-    ansible-pull \
-        -d /var/lib/ansible/local \
-        -U https://github.com/monokal/docker-nsd.git \
-        -i 127.0.0.1, \
-        --purge
-
-RUN apt-get -y purge software-properties-common git ansible
+# ansible-pull will have already run at this point (ONBUILD)
+# so how dafuq do I inject:
+ENV PLAYBOOK_REPO https://github.com/monokal/docker-nsd.git
 
 EXPOSE 53
 
