@@ -3,8 +3,12 @@
 - name: "Installing NSD using Ansible..."
   hosts: all
   connection: local
+  vars:
+    nsd_key_secret:       x
+    nsd_slave_ip:         x
+    nsd_zone_uri:         x
+    nsd_reverse_zone_uri: x
   tasks:
-
     - name: create_users
       user:
         name: "{{ item }}"
