@@ -5,7 +5,6 @@
   connection: local
   tasks:
 
-    # Create the nsd user.
     - name: create_users
       user:
         name: "{{ item }}"
@@ -13,7 +12,6 @@
         - "nsd"
       register: create_users
 
-    # Install the nsd package.
     - name: install_packages
       when: create_users|success
       apt:
@@ -23,8 +21,17 @@
         - "nsd"
       register: install_packages
 
-    # Configure nsd.
-    - name: configure_nsd
+    - name: generate_nsd_config
       when: create_users|success
       command: "nsd-control-setup"
-      register: configure_nsd
+      register: generate_nsd_config
+
+    - name: amend_nsd_config
+      when: generate_nsd_config|success
+      template:
+        src:    nsd.conf.j2
+        dest:   /etc/nsd/nsd.conf
+        owner:  root
+        group:  root
+        mode:   "u=rw,g=r,o=r"
+      register: amend_nsd_config
