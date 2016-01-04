@@ -1,13 +1,30 @@
 ---
 
-- name:       "Installing NSD using Ansible..."
-  hosts:      all
+- name: "Installing NSD using Ansible..."
+  hosts: all
   connection: local
   tasks:
+
+    # Create the nsd user.
+    - name: create_users
+      user:
+        name: "{{ item }}"
+      with_items:
+        - "nsd"
+      register: create_users
+
+    # Install the nsd package.
     - name: install_packages
+      when: create_users|success
       apt:
-        name:         "{{ item }}"
+        name: "{{ item }}"
         update_cache: yes
       with_items:
         - "nsd"
       register: install_packages
+
+    # Configure nsd.
+    - name: configure_nsd
+      when: create_users|success
+      command: "nsd-control-setup"
+      register: configure_nsd
