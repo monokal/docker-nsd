@@ -1,0 +1,42 @@
+# {{ ansible_managed }}
+#
+# nsd.conf -- the NSD(8) configuration file, nsd.conf(5).
+
+server:
+    server-count: 1
+    debug-mode: yes
+    do-ip4: yes
+    port: 53
+    username: nsd
+    zonesdir: "/etc/nsd"
+    pidfile: "/run/nsd/nsd.pid"
+
+remote-control:
+    control-enable: yes
+    control-interface: 127.0.0.1
+    control-port: 8952
+
+    server-key-file: "/etc/nsd/nsd_server.key"
+    server-cert-file: "/etc/nsd/nsd_server.pem"
+    control-key-file: "/etc/nsd/nsd_control.key"
+    control-cert-file: "/etc/nsd/nsd_control.pem"
+
+key:
+    name: "nsdkey"
+    algorithm: hmac-sha256
+    secret: "{{ nsd_key_secret }}"
+
+pattern:
+    name: "toslave"
+    notify: {{ nsd_slave_ip }} nsdkey
+    provide-xfr: {{ nsd_slave_ip }} nsdkey
+
+zone:
+    name: "{{ nsd_zone_uri }}"
+    include-pattern: "toslave"
+    zonefile: "{{ nsd_zone_uri }}.zone"
+
+zone:
+    name: "{{ nsd_reverse_zone_uri }}"
+    include-pattern: "toslave"
+    zonefile: "{{ nsd_reverse_zone_uri }}.zone"

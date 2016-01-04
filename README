@@ -6,9 +6,9 @@
     USAGE
     -----
     docker run --name ns1 \
-               --hostname=ns1 \
-               --add-host=[ns1.<YOUR.TLD>:<IP_ADDR>] \
-               --restart=always
+               --hostname ns1 \
+               --add-host "ns1.<YOUR.TLD> ns1":<IP_ADDR> \
+               --restart always
 
     AUTHOR
     ------

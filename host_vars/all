@@ -1,0 +1,8 @@
+---
+
+# EDIT BELOW - THESE ARE INSECURE/INVALID DEFAULTS.
+
+nsd_key_secret:       x
+nsd_slave_ip:         x
+nsd_zone_uri:         x
+nsd_reverse_zone_uri: x

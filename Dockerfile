@@ -28,4 +28,4 @@ RUN apt-get -y purge software-properties-common git ansible && \
 
 EXPOSE 53
 
-ENTRYPOINT ["/usr/sbin/nsd"]
+CMD ["/usr/sbin/nsd"]
