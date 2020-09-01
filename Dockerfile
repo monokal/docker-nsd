@@ -1,7 +1,5 @@
 FROM ubuntu:trusty
 
-MAINTAINER Daniel Middleton <d@monokal.io>
-
 ENV PLAYBOOK_REPO https://github.com/monokal/docker-nsd.git
 ENV DEBIAN_FRONTEND noninteractive
 
